@@ -44,6 +44,19 @@ class QuizApp {
         document.getElementById('home-btn').addEventListener('click', () => {
             this.goHome();
         });
+
+        // 回答一覧タブ
+        document.getElementById('all-tab').addEventListener('click', () => {
+            this.showAnswerList('all');
+        });
+
+        document.getElementById('correct-tab').addEventListener('click', () => {
+            this.showAnswerList('correct');
+        });
+
+        document.getElementById('incorrect-tab').addEventListener('click', () => {
+            this.showAnswerList('incorrect');
+        });
     }
 
     loadQuizData() {
@@ -330,6 +343,9 @@ class QuizApp {
 
         // カテゴリ別結果表示
         this.displayCategoryResults();
+        
+        // 回答一覧表示
+        this.showAnswerList('all');
     }
 
     displayCategoryResults() {
@@ -352,6 +368,82 @@ class QuizApp {
             categoryElement.appendChild(nameElement);
             categoryElement.appendChild(scoreElement);
             container.appendChild(categoryElement);
+        });
+    }
+
+    showAnswerList(filter) {
+        // タブの表示切り替え
+        document.querySelectorAll('.tab-button').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(`${filter}-tab`).classList.add('active');
+
+        const container = document.getElementById('answer-list');
+        container.innerHTML = '';
+
+        this.userAnswers.forEach((answer, index) => {
+            const question = this.questions[index];
+            
+            // フィルタリング
+            if (filter === 'correct' && !answer.isCorrect) return;
+            if (filter === 'incorrect' && answer.isCorrect) return;
+
+            const answerElement = document.createElement('div');
+            answerElement.className = `answer-item ${answer.isCorrect ? 'correct' : 'incorrect'}`;
+
+            const numberElement = document.createElement('div');
+            numberElement.className = 'answer-number';
+            numberElement.textContent = index + 1;
+
+            const contentElement = document.createElement('div');
+            contentElement.className = 'answer-content';
+
+            const questionElement = document.createElement('div');
+            questionElement.className = 'answer-question';
+            questionElement.textContent = question.description;
+
+            const detailsElement = document.createElement('div');
+            detailsElement.className = 'answer-details';
+
+            const categoryElement = document.createElement('span');
+            categoryElement.className = 'answer-category';
+            categoryElement.textContent = question.category;
+
+            const statusElement = document.createElement('span');
+            statusElement.className = `answer-status ${answer.isCorrect ? 'correct' : 'incorrect'}`;
+            statusElement.textContent = answer.isCorrect ? '正解' : '不正解';
+
+            // 選択した回答を表示
+            const selectedAnswersText = answer.selectedAnswers
+                .map(id => question.choices.find(choice => choice.id === id)?.text)
+                .filter(text => text)
+                .join(', ');
+
+            const correctAnswersText = answer.correctAnswers
+                .map(id => question.choices.find(choice => choice.id === id)?.text)
+                .filter(text => text)
+                .join(', ');
+
+            const answerTextElement = document.createElement('div');
+            answerTextElement.style.fontSize = '0.8rem';
+            answerTextElement.style.marginTop = '0.5rem';
+            answerTextElement.style.color = '#718096';
+            answerTextElement.innerHTML = `
+                <div>あなたの回答: ${selectedAnswersText}</div>
+                <div>正解: ${correctAnswersText}</div>
+            `;
+
+            detailsElement.appendChild(categoryElement);
+            detailsElement.appendChild(statusElement);
+
+            contentElement.appendChild(questionElement);
+            contentElement.appendChild(detailsElement);
+            contentElement.appendChild(answerTextElement);
+
+            answerElement.appendChild(numberElement);
+            answerElement.appendChild(contentElement);
+
+            container.appendChild(answerElement);
         });
     }
 
