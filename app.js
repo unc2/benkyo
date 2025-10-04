@@ -64,7 +64,14 @@ class QuizApp {
         this.categoryScores = {};
 
         // 問題をシャッフル
-        this.questions = this.shuffleArray([...quizData]);
+        let shuffledQuestions = this.shuffleArray([...quizData]);
+        
+        // 模擬試験モードの場合は60問に制限、暗記モードは全問題
+        if (mode === 'mock') {
+            this.questions = shuffledQuestions.slice(0, Math.min(60, shuffledQuestions.length));
+        } else {
+            this.questions = shuffledQuestions;
+        }
 
         this.showScreen('quiz-screen');
         this.updateModeIndicator();
