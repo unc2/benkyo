@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資格習得のための試験対策アプリ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- トップページ -->
+        <div id="home-screen" class="screen active">
+            <header>
+                <h1>資格習得のための試験対策アプリ</h1>
+            </header>
+            
+            <main>
+                <div class="mode-selection">
+                    <h2>試験形式を選択してください</h2>
+                    <div class="mode-cards">
+                        <div class="mode-card" id="mock-exam-btn">
+                            <h3>模擬試験形式</h3>
+                            <p>実際の模擬試験のように問題を提示し、最後に結果を表示します</p>
+                        </div>
+                        <div class="mode-card" id="memorize-btn">
+                            <h3>暗記形式</h3>
+                            <p>問題に答えるたびに正解と解説を表示します</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- クイズ画面 -->
+        <div id="quiz-screen" class="screen">
+            <header>
+                <div class="quiz-header">
+                    <button id="back-btn" class="back-button">← 戻る</button>
+                    <div class="progress-info">
+                        <span id="current-question">1</span> / <span id="total-questions">10</span>
+                    </div>
+                    <div id="mode-indicator" class="mode-indicator"></div>
+                </div>
+            </header>
+
+            <main class="quiz-main">
+                <div class="question-container">
+                    <div class="question-info">
+                        <span class="category" id="question-category"></span>
+                        <span class="difficulty" id="question-difficulty"></span>
+                    </div>
+                    
+                    <div class="question-content">
+                        <h2 id="question-text"></h2>
+                        <img id="question-image" class="question-image" style="display: none;" alt="問題画像">
+                    </div>
+
+                    <div class="choices-container" id="choices-container">
+                        <!-- 選択肢がJavaScriptで動的に生成される -->
+                    </div>
+
+                    <div class="quiz-actions">
+                        <button id="submit-answer" class="submit-button" disabled>回答する</button>
+                        <button id="next-question" class="next-button" style="display: none;">次の問題</button>
+                    </div>
+
+                    <!-- 暗記モード用の解説表示 -->
+                    <div id="explanation-container" class="explanation-container" style="display: none;">
+                        <div class="result-indicator">
+                            <span id="result-text"></span>
+                        </div>
+                        <div class="explanation">
+                            <h3>解説</h3>
+                            <p id="explanation-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- 結果画面（模擬試験モード用） -->
+        <div id="result-screen" class="screen">
+            <header>
+                <h1>試験結果</h1>
+            </header>
+
+            <main class="result-main">
+                <div class="overall-result">
+                    <div class="score-circle">
+                        <div class="score-percentage" id="score-percentage">0%</div>
+                        <div class="score-detail" id="score-detail">0/0 問正解</div>
+                    </div>
+                    
+                    <div class="pass-fail" id="pass-fail-indicator">
+                        <!-- 合格/不合格がJavaScriptで表示される -->
+                    </div>
+                </div>
+
+                <div class="category-results">
+                    <h3>カテゴリ別結果</h3>
+                    <div id="category-breakdown">
+                        <!-- カテゴリ別結果がJavaScriptで生成される -->
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="retry-btn" class="retry-button">もう一度挑戦</button>
+                    <button id="home-btn" class="home-button">ホームに戻る</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="quiz-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

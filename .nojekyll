@@ -1,0 +1,5 @@
+# GitHub Pages用の設定ファイル
+# 静的サイトとして配信するための設定
+
+# Jekyll処理を無効化（純粋なHTML/CSS/JSとして配信）
+_config.yml

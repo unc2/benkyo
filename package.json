@@ -1,0 +1,33 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "description": "試験対策アプリ",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 3000 -c-1",
+    "build": "echo 'No build process needed for static files'",
+    "test": "echo 'No tests specified'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://example.com"
+  },
+  "keywords": [
+    "quiz",
+    "certification",
+    "exam",
+    "study",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "homepage": "https://example.com",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
